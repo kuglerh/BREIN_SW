@@ -1,0 +1,311 @@
+MODULE states81
+VAR 
+    error : boolean ; x1 : { 0 , 1 } ... x81 : { 0 , 1 } ; 
+	X1 : boolean ... X81 : boolean ; 
+ASSIGN
+    init ( error ) := FALSE ;
+    init ( x1 ) := { 0 , 1 } ; 
+	...
+    init ( x81 ) := { 0 , 1 } ; 
+	
+    next ( error ) := case
+    x11 > x10 : TRUE ;
+    x47 > x74 : TRUE ;
+    x22 > x58 : TRUE ;
+    x8 > x17 : TRUE ;
+    x6 > x33 : TRUE ;
+	... 
+    TRUE : error;
+    esac ;
+	
+    next ( x1 ) := x1 ; 
+	...
+    next ( x81 ) := x81 ; 
+	
+	next(X1) := case
+	x1 = 1 : TRUE;
+	TRUE : FALSE;
+	esac;
+	...
+	next(X81) := case
+	x81 = 1 : TRUE;
+	TRUE : FALSE;
+	esac;
+		
+   LTLSPEC G X (error = TRUE);
+   
+MODULE node_S1iIi(main,S1iIi)
+VAR
+value0 : boolean;
+value1 : boolean;
+ASSIGN
+next(value0) := case
+main.i : {TRUE,FALSE};
+TRUE : ((S1iIi.value0));
+esac;
+next(value1) := case
+main.i : {TRUE,FALSE};
+TRUE : ((S1iIi.value1));
+esac;
+
+MODULE node_S2iIi(main,S2iIi)
+VAR
+value0 : boolean;
+value1 : boolean;
+ASSIGN
+next(value0) := case
+main.i : {TRUE,FALSE};
+TRUE : ((S2iIi.value0));
+esac;
+next(value1) := case
+main.i : {TRUE,FALSE};
+TRUE : ((S2iIi.value1));
+esac;
+
+MODULE node_CiIi(main,BiIi,AiIi)
+VAR
+value0 : boolean;
+value1 : boolean;
+transition : {1,3,5};
+BiIi_connected : boolean;
+AiIi_connected : boolean;
+ASSIGN
+next(BiIi_connected) := BiIi_connected;
+next(AiIi_connected) := AiIi_connected;
+next(transition) := transition;
+next(value0) := case
+main.i : {TRUE,FALSE};
+transition = 1 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value0 & BiIi_connected)|(AiIi.value0 & AiIi_connected))));
+transition = 3 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value0 & BiIi_connected)|(AiIi.value0 & AiIi_connected))));
+transition = 5 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value0 & BiIi_connected)|(AiIi.value0 & AiIi_connected))));
+esac;
+next(value1) := case
+main.i : {TRUE,FALSE};
+transition = 1 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value1 & BiIi_connected)|(AiIi.value1 & AiIi_connected))));
+transition = 3 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value1 & BiIi_connected)|(AiIi.value1 & AiIi_connected))));
+transition = 5 : (!(BiIi_connected|AiIi_connected)&(FALSE)) | (!!(BiIi_connected|AiIi_connected)&(((BiIi.value1 & BiIi_connected)|(AiIi.value1 & AiIi_connected))));
+esac;
+
+MODULE node_AiIi(main,BiIi,S1iIi)
+VAR
+value0 : boolean;
+value1 : boolean;
+BiIi_connected : boolean;
+ASSIGN
+next(BiIi_connected) := BiIi_connected;
+next(value0) := case
+main.i : {TRUE,FALSE};
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X1;
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X2;
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X3;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X4;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X5;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X6;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X7;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X8;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X9;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X10;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X11;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X12;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X13;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X14;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X15;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X16;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X17;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X18;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X19;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X20;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X21;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X22;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X23;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X24;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X25;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X26;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X27;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X28;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X29;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X30;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X31;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X32;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X33;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X34;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X35;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X36;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X37;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X38;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X39;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X40;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X41;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X42;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X43;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X44;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X45;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X46;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X47;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X48;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X49;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X50;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X51;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X52;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X53;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X54;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X55;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X56;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X57;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X58;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X59;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X60;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X61;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X62;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X63;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X64;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X65;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X66;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X67;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X68;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X69;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X70;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X71;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X72;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X73;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X74;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X75;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X76;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X77;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X78;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X79;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE : states81.X80;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X81;
+esac;
+next(value1) := case
+main.i : {TRUE,FALSE};
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X1;
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X2;
+!(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X3;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X4;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X5;
+!(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X6;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X7;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X8;
+!(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X9;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X10;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X11;
+!(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X12;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X13;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X14;
+!(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X15;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X16;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X17;
+!(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X18;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X19;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X20;
+!(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X21;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X22;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X23;
+!(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X24;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X25;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X26;
+!(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X27;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X28;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X29;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X30;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X31;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X32;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X33;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X34;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X35;
+((S1iIi.value) & !(S1iIi.value)) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X36;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X37;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X38;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X39;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X40;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X41;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X42;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X43;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X44;
+((S1iIi.value) & !(S1iIi.value)) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X45;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X46;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X47;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X48;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X49;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X50;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X51;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X52;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X53;
+((S1iIi.value) & !(S1iIi.value)) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X54;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X55;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X56;
+(S1iIi.value) & !FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X57;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X58;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X59;
+(S1iIi.value) & !FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X60;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X61;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X62;
+(S1iIi.value) & !FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X63;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X64;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X65;
+(S1iIi.value) & (FALSE & !FALSE) & !((BiIi.value & BiIi_connected)) & FALSE : states81.X66;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X67;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X68;
+(S1iIi.value) & (FALSE & !FALSE) & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X69;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X70;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE) : states81.X71;
+(S1iIi.value) & (FALSE & !FALSE) & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X72;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & !FALSE : states81.X73;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & (FALSE & !FALSE) : states81.X74;
+(S1iIi.value) & FALSE & !((BiIi.value & BiIi_connected)) & FALSE : states81.X75;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & !FALSE : states81.X76;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & (FALSE & !FALSE) : states81.X77;
+(S1iIi.value) & FALSE & (((BiIi.value & BiIi_connected)) & !((BiIi.value | ! BiIi_connected))) & FALSE : states81.X78;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & !FALSE : states81.X79;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & (FALSE & !FALSE : states81.X80;
+(S1iIi.value) & FALSE & ((BiIi.value | ! BiIi_connected)) & FALSE : states81.X81;
+esac;
+
+MODULE node_BiIi(main,AiIi,S2iIi)
+VAR
+value0 : boolean;
+value1 : boolean;
+transition : {0,1,2,3,4,5,6,7,8};
+AiIi_connected : boolean;
+ASSIGN
+next(AiIi_connected) := AiIi_connected;
+next(transition) := transition;
+next(value0) := case
+main.i : {TRUE,FALSE};
+transition = 0 : (((AiIi.value0 | ! AiIi_connected)&S2iIi.value0));
+transition = 1 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+transition = 2 : (((AiIi.value0 | ! AiIi_connected)&S2iIi.value0));
+transition = 3 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+transition = 4 : (((AiIi.value0 | ! AiIi_connected)&S2iIi.value0));
+transition = 5 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+transition = 6 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+transition = 7 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+transition = 8 : (((AiIi.value0 & AiIi_connected)|S2iIi.value0));
+esac;
+next(value1) := case
+main.i : {TRUE,FALSE};
+transition = 0 : (((AiIi.value1 | ! AiIi_connected)&S2iIi.value1));
+transition = 1 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+transition = 2 : (((AiIi.value1 | ! AiIi_connected)&S2iIi.value1));
+transition = 3 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+transition = 4 : (((AiIi.value1 | ! AiIi_connected)&S2iIi.value1));
+transition = 5 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+transition = 6 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+transition = 7 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+transition = 8 : (((AiIi.value1 & AiIi_connected)|S2iIi.value1));
+esac;
+
+MODULE main
+VAR
+i : boolean;
+S1iIi :  node_S1iIi(self,S1iIi);
+S2iIi :  node_S2iIi(self,S2iIi);
+CiIi :  node_CiIi(self,BiIi,AiIi);
+AiIi :  node_AiIi(self,BiIi,S1iIi);
+BiIi :  node_BiIi(self,AiIi,S2iIi);
+ASSIGN
+init(i) := TRUE;
+next(i) := FALSE;
+DEFINE
+Conditions10:={S1iIi.value0=FALSE&S2iIi.value0=TRUE};Conditions20:={S1iIi.value0=TRUE&S2iIi.value0=TRUE};Expression10:={AiIi.value0=TRUE&BiIi.value0=TRUE&CiIi.value0=TRUE};Expression20:={AiIi.value0=FALSE&BiIi.value0=TRUE&CiIi.value0=TRUE};Conditions11:={S1iIi.value1=FALSE&S2iIi.value1=TRUE};Conditions21:={S1iIi.value1=TRUE&S2iIi.value1=TRUE};Expression11:={AiIi.value1=TRUE&BiIi.value1=TRUE&CiIi.value1=TRUE};Expression21:={AiIi.value1=FALSE&BiIi.value1=TRUE&CiIi.value1=TRUE};

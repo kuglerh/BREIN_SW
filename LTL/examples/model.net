@@ -1,0 +1,16 @@
+﻿directive length 20;
+directive uniqueness interactions;
+directive limit 0;
+directive regulation noThresholds;
+C[](81); B[](0..8); A[](0..8); S2[](0); S1[](0); D[](0..8);
+B	C	positive 	weak optional; 
+A	C	positive	strong optional;
+B	A	positive	optional; 
+A	B	positive	optional; 
+D	C	positive	strong; 
+S1	D	positive; 
+S2	B	positive; 
+S1	A	positive; 
+S2	S2	positive; 
+S1	S1	positive; 
+
