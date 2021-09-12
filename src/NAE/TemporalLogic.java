@@ -165,6 +165,7 @@ public class TemporalLogic extends Converter{
      	for(Node n:nodes.values()){
     		if(n.functions[0] == 81){
     			code.append("states81 : states81;\n");
+    			break;
     		}
     	}
         code.append("i : boolean;\n");

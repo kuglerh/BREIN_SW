@@ -931,9 +931,9 @@ public class Generator {
 		"	x81 = 1 : TRUE;\n"+
 		"	TRUE : FALSE;\n"+
 
-	"		esac;\n"+
-
-     "   LTLSPEC G X (error = TRUE);\n");
+	"		esac;\n"
+);
+    // "   LTLSPEC G (X (error = TRUE));\n");
 	
 		return states81.toString();
 	}
