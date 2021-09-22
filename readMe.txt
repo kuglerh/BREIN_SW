@@ -30,8 +30,7 @@ additionally there are optional arguments, which, if specified, must be after th
 -v to perform validation on solutions 
 -bmc <length> to specify the bounds of bmc. Default is 20.
 
-Files:
-.net files:
+.net file:
 In case of a special node (strong and weak regulators), the node should be define as follows:
 <node_name>[](81);
 and each connection that connect into this node should be define as follows:
