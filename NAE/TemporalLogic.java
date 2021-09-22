@@ -136,13 +136,13 @@ public class TemporalLogic extends Converter{
         StringBuilder code = new StringBuilder();
         
         /*****************************************
-         * if we have one or ore special node, add 
-         * module 81 to smv file 
+         * if we have special nodes, add 
+         * module 81 to smv file for each one
          *****************************************/
         for(Node n:nodes.values()){
         	if(n.functions[0] == 81){
+        		code.append("MODULE states81_"+n.name+"\n");
         		code.append(Generator.generate_state());
-        		break;
         	}
         }
 
@@ -164,8 +164,7 @@ public class TemporalLogic extends Converter{
         code.append("MODULE main\nVAR\n");
      	for(Node n:nodes.values()){
     		if(n.functions[0] == 81){
-    			code.append("states81 : states81;\n");
-    			break;
+    			code.append("states81_"+n.name+" : states81_"+n.name+";\n");
     		}
     	}
         code.append("i : boolean;\n");
@@ -223,8 +222,7 @@ public class TemporalLogic extends Converter{
          ************************************************************/
         for(Node n:nodes.values()){
         	if(n.functions[0] == 81){
-        		code.append("| (!( F( G (!(states81.error)))))");
-        		break;
+        		code.append("| (!( F( G (!(states81_"+n.name+".error)))))");
         	}
         }
 
@@ -606,10 +604,10 @@ public class TemporalLogic extends Converter{
         StringBuilder init = null;
         
         /**************************************************************
-         * in case of a special node we need that the node know state81
+         * in case of a special node we need that the node know his own state81
          **************************************************************/
         if(n.functions[0] == 81){
-            init =  new StringBuilder(n.name+" : " +p+ " node_"+n.name+"(self, states81");
+            init =  new StringBuilder(n.name+" : " +p+ " node_"+n.name+"(self, states81_"+n.name);
         }
         else{
             init =  new StringBuilder(n.name+" : " +p+ " node_"+n.name+"(self");

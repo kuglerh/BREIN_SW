@@ -62,7 +62,7 @@ class Node{
          **************************************************************************/
         
         if(this.functions[0] == 81){
-            module.append("MODULE node_"+name+"(main, states81");
+            module.append("MODULE node_"+name+"(main, states81_"+name);
 
         }
         else{
@@ -216,7 +216,7 @@ class Node{
             
             //we write the 81 state for each special node in the smv file
             for(int i=1;i<=81;i++){
-            	state = statesWriter.getState(i)+" : states81.X"+Integer.toString(i)+";";
+            	state = statesWriter.getState(i)+" : states81_"+name+".X"+Integer.toString(i)+";";
                 module.append(state.replace("value","value"+(valueNumber==1?"":valNum))+"\n");
             }
             module.append("esac;\n");
