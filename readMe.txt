@@ -77,10 +77,14 @@ Running NAE without the bashscript:
 To aid in running the tool directly to see how it works, the following are a bunch of ready to go commands to run NAE from a terminal open to the NetworkAnalysisEngine directory. They can be run as is or modified as the evaluator sees fit.
 
 Running LTL models:
-java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations.ltlspec temporal_logic_bdd
+java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations.ltlspec temporal_logic_bmc
 java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations.ltlspec temporal_logic_bmc -bmc 20
 java -jar NAE.jar 10 LTL/pluripotency10_ltl/model.net LTL/pluripotency10_ltl/observation.ltlspec temporal_logic_bmc
 java -jar NAE.jar 25 LTL/ComplexLTLExample/model.net LTL/ComplexLTLExample/observation.ltlspec temporal_logic_bmc
+
+Example for special node running:
+java -jar NAE.jar 100 LTL/mammalian_cell_cycle_ltl/model.net LTL/mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
+
 
 
 
