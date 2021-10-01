@@ -1,0 +1,117 @@
+$InitialConditions := {
+E2F	= 0 and
+Rb	= 0 and
+CycA	= 0 and
+CycB	= 0 and
+p27	= 0
+};
+
+$InitialCondition2 := {
+E2F	= 0 and
+Rb	= 0 and
+CycA	= 1 and
+CycB	= 0 and
+p27	= 1
+};
+
+$InitialCondition3 := {
+E2F = 1 and 
+Rb = 1 and 
+CycA = 0 and 
+CycB = 0 and 
+p27 = 1
+};
+
+
+$InitialConditionCycDOff := {
+CycD = 0 
+};
+
+$InitialConditionCycDOn := {
+CycD = 1 and
+UbcH10 = 1 and
+Cdh1 = 1 and
+Cdc20 = 1
+};
+
+$StableCycDOff := {
+CycD = 0 and
+Rb = 1 and
+p27 = 1 and
+Cdh1 = 1 
+};
+
+$StableCycDOn := {
+CycD = 1 
+};
+
+$T1Initial := {
+CycD = 1 and
+Rb = 0 and
+E2F = 1 and
+CycE = 1 and
+CycA = 0 and
+p27 = 0 and
+Cdc20 = 0 and
+Cdh1 = 1
+};
+
+$T1Final := {
+CycD = 1 and
+Rb = 0 and
+E2F = 1 and
+CycE = 1 and
+CycA = 1 and
+p27 = 0 and
+Cdc20 = 0 and
+Cdh1 = 1
+};
+
+
+$E2FBlock1 := {
+E2F	= 1 and
+Rb	= 0 and
+CycA	= 0 and
+CycB	= 0 and
+p27	= 0
+};
+
+$E2FBlock2 := {
+E2F	= 1 and
+p27	= 1 and
+CycB	= 0 and
+CycA	= 1 and
+Rb	= 0
+};
+
+$E2FBlock3 := {
+E2F = 0 and 
+p27 = 1 and 
+CycB = 0 and 
+CycA = 0 and 
+Rb = 1
+};
+
+
+
+//experimental observations
+
+#Experiment1 |= $InitialConditions;
+X(#Experiment1 |= $E2FBlock1);
+
+#Experiment2 |= $InitialCondition2;
+X(#Experiment2 |= $E2FBlock2);
+
+#Experiment3 |= $InitialCondition3;
+X(#Experiment3 |= $E2FBlock3);
+
+#Experiment4 |= $InitialConditionCycDOff;
+X(#Experiment4 |= $StableCycDOff);
+
+#Experiment5 |= $InitialConditionCycDOn;
+X(#Experiment5 |= $StableCycDOn);
+
+#Experiment6 |= $T1Initial;
+X(#Experiment6 |= $T1Final);
+
+

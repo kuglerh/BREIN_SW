@@ -1,0 +1,21 @@
+directive length 20;
+directive uniqueness interactions;
+directive limit 0;
+directive regulation noThresholds;
+
+
+E2F[](81); Rb[](0..17); CycA[](0..17); CycB[](0..17); p27[](0..17);
+p27	E2F	positive	strong;
+CycA	E2F	negative	weak;
+CycB	E2F	negative	strong;
+Rb	E2F	negative	strong;	
+CycB	Rb	negative;
+p27	Rb	positive; 
+CycB	p27	negative;
+CycA	Rb	negative;
+Rb	CycA	negative;
+E2F	CycA	positive;
+p27	p27	positive;
+CycA	CycA	positive;
+
+

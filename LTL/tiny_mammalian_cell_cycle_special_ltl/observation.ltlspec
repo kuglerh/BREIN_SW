@@ -1,0 +1,18 @@
+
+
+$InitialConditions := {E2F = 0 and Rb = 0 and CycA = 0 and CycB = 0 and p27 = 0};
+$InitialCondition2 := {E2F = 1 and Rb = 0 and CycA = 1 and CycB = 0 and p27 = 1};
+$InitialCondition3 := {E2F = 1 and Rb = 1 and CycA = 0 and CycB = 0 and p27 = 1};
+$E2FBlock1 := {E2F = 1 and Rb = 0 and CycA = 0 and CycB = 0 and p27 = 0};
+$E2FBlock2 := {E2F = 1 and p27 = 1 and CycB = 0 and CycA = 1 and Rb = 0};
+$E2FBlock3 := {E2F = 0 and p27 = 1 and CycB = 0 and CycA = 0 and Rb = 1};
+
+//experimental observations
+#ExperimentOne |= $InitialConditions;
+X ((#ExperimentOne |= $E2FBlock1));
+#ExperimentTwo |= $InitialCondition2;
+X ((#ExperimentTwo |= $E2FBlock2));
+#ExperimentThree |= $InitialCondition3;
+X ((#ExperimentThree |= $E2FBlock3)); 
+
+

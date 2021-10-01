@@ -82,8 +82,17 @@ java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations
 java -jar NAE.jar 10 LTL/pluripotency10_ltl/model.net LTL/pluripotency10_ltl/observation.ltlspec temporal_logic_bmc
 java -jar NAE.jar 25 LTL/ComplexLTLExample/model.net LTL/ComplexLTLExample/observation.ltlspec temporal_logic_bmc
 
-Example for special node running:
-java -jar NAE.jar 100 LTL/mammalian_cell_cycle_ltl/model.net LTL/mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
+Examples where in the original version of BREIN there are no solutions for a particular system, but in our extended version there are solutions:
+1. Full mammalian cell cycle - Original version vs. extended version:
+java -jar NAE.jar 100 LTL/full_mammalian_cell_cycle_ltl/model.net LTL/full_mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
+java -jar NAE.jar 100 LTL/full_mammalian_cell_cycle_special_ltl/model.net LTL/full_mammalian_cell_cycle_special_ltl/observations.ltlspec temporal_logic_bmc
+
+2. Part of mammalian cell cycle [E2F] - Original version vs. extended version:
+java -jar NAE.jar 100 LTL/tiny_mammalian_cell_cycle_ltl/model.net LTL/tiny_mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
+java -jar NAE.jar 100 LTL/tiny_mammalian_cell_cycle_special_ltl/model.net LTL/tiny_mammalian_cell_cycle_special_ltl/observations.ltlspec temporal_logic_bmc
+
+Example to running with 2 special nodes:
+java -jar NAE.jar 100 LTL/mammalian_cell_cycle_2specials_ltl/model.net LTL/mammalian_cell_cycle_2specials_ltl/observations.ltlspec temporal_logic_bmc
 
 
 

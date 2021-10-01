@@ -1,0 +1,15 @@
+// Observation predicates
+$Conditions1 := { E2F	= 0 and Rb = 0 and CycA	= 0 and CycB = 0 and p27 = 0};
+$Conditions2 := { E2F = 0 and Rb = 0 and CycA = 1 and CycB = 0 and p27 = 1};
+$Conditions3 := { E2F = 1 and Rb = 0 and CycA = 0 and CycB = 1 and p27 = 1};
+$Expression1 := { E2F = 1 and Rb = 0 and CycA = 0 and CycB = 0 and p27 = 0};
+$Expression2 := { E2F = 1 and p27	= 1 and CycB = 0 and CycA = 1 and Rb = 0};
+$Expression3 := { E2F = 0 and p27	= 1 and CycB = 1 and CycA = 0 and Rb = 0};
+
+// experimental observations
+#Experiment1 |= $Conditions1;
+F (G(#Experiment1 |= $Expression1));
+#Experiment2 |= $Conditions2;
+F(G(#Experiment2 |= $Expression2));
+#Experiment3 |= $Conditions3;
+F(G((#Experiment3 |= $Expression3)); 
