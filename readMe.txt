@@ -1,4 +1,3 @@
-
 BRE:IN - A Backend for Reasoning about Interaction Networks with Temporal Logic
 
 Noy Biton, Sharon Shoob, Ani Amar and Hillel Kugler
@@ -26,14 +25,14 @@ The following is the syntax for running NAE from the command line, assuming we a
 <mode> is the mode of encoding in NuSMV. Current modes are:
     temporal_logic_bmc:      for use with .ctlspec and .ltlspec files to run the SAT solver with bounded model checking
 
-additionally there are optional arguments, which, if specified, must be after the 4 required arguments. They are:
+additionally, there are optional arguments, which, if specified, must be after the 4 required arguments. They are:
 -v to perform validation on solutions 
--bmc <length> to specify the bounds of bmc. Default is 20.
+-bmc <length> to specify the bounds of bmc. The default is 20.
 
 .net file:
-In case of a special node (strong and weak regulators), the node should be define as follows:
+In case of a special node (strong and weak regulators), the node should be defined as follows:
 <node_name>[](81);
-and each connection that connect into this node should be define as follows:
+and each connection that connects into this node should be defined as follows:
 <regulator_name>	<node_name>	positive/negative	strong/weak  [optional];	
 
 Test models:
@@ -57,7 +56,7 @@ NAE either marks every optional connection as on or off in each solution. Here i
 Evaluating the tool:
 
 Included in the NetworkAnalysisEngine directory is a bash script named "test" that builds the tool and runs all of the test models under various parameters, printing the results and providing benchmarks. 
-Please note that some of the very large models take up alot of memory and may not run properly if the virtual machine has less than 10 GB of memory. Also note that some of the benchmarks obtained will be slightly slower on the VM than had NAE been run on a regular machine.
+Please note that some of the very large models take up a lot of memory and may not run properly if the virtual machine has less than 10 GB of memory. Also, note that some of the benchmarks obtained will be slightly slower on the VM than had NAE been run on a regular machine.
 Make sure the terminal window is opened to fullscreen for proper formatting.
 the bash script should be run by invoking: 
 > bash test
@@ -67,33 +66,17 @@ Also included in the NetworkAnalsisEngine directory is a file "benchmark.test" t
 16 GB RAM
 Processor: Inter Core i7-7700HQ    2.80   GHz
 
-Interpetting the benchmarks:
-The benchmarks obtained from the models in the testModel directory are interesting in that they are competitive with RE:IN, in fact usually they are faster.
-The benchmarks from the models in the LTL and CTL directories cannot be compared to RE:IN, as they contain specififcations not possible in RE:IN. 
-The exception to this is the pluripotency10_ltl model, which is a temporal logic translation of a RE:IN model that demonstrates how such a translation can improve performance (as compared to the prupotency_model10 which is the same specification but in RE:IN timestep style).
-
-
 Running NAE without the bashscript:
-To aid in running the tool directly to see how it works, the following are a bunch of ready to go commands to run NAE from a terminal open to the NetworkAnalysisEngine directory. They can be run as is or modified as the evaluator sees fit.
+To aid in running the tool directly to see how it works, the following is a bunch of ready-to-go commands to run NAE from a terminal open to the NetworkAnalysisEngine directory. They can be run as is or modified as the evaluator sees fit.
 
-Running LTL models:
-java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations.ltlspec temporal_logic_bmc
-java -jar NAE.jar 100 LTL/toy_model_ltl/model.net LTL/toy_model_ltl/observations.ltlspec temporal_logic_bmc -bmc 20
-java -jar NAE.jar 10 LTL/pluripotency10_ltl/model.net LTL/pluripotency10_ltl/observation.ltlspec temporal_logic_bmc
-java -jar NAE.jar 25 LTL/ComplexLTLExample/model.net LTL/ComplexLTLExample/observation.ltlspec temporal_logic_bmc
+Running LTL models
+The example where in the original version of BREIN there are no solutions for a particular system, but in our extended version there are solutions:
+The mammalian cell cycle regulation model   (see reference [1]) - Original version vs. extended version:
+java -jar NAE.jar 10 LTL\full_mammalian_cell_cycle_equal_ltl\model.net LTL\full_mammalian_cell_cycle_equal_ltl\observation.ltlspec temporal_logic_bmc
+java -jar NAE.jar 10 LTL\full_mammalian_cell_cycle_updated_ltl\model.net LTL\full_mammalian_cell_cycle_updated_ltl\observation.ltlspec temporal_logic_bmc
 
-Examples where in the original version of BREIN there are no solutions for a particular system, but in our extended version there are solutions:
-1. Full mammalian cell cycle - Original version vs. extended version:
-java -jar NAE.jar 100 LTL/full_mammalian_cell_cycle_ltl/model.net LTL/full_mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
-java -jar NAE.jar 100 LTL/full_mammalian_cell_cycle_special_ltl/model.net LTL/full_mammalian_cell_cycle_special_ltl/observations.ltlspec temporal_logic_bmc
-
-2. Part of mammalian cell cycle [E2F] - Original version vs. extended version:
-java -jar NAE.jar 100 LTL/tiny_mammalian_cell_cycle_ltl/model.net LTL/tiny_mammalian_cell_cycle_ltl/observations.ltlspec temporal_logic_bmc
-java -jar NAE.jar 100 LTL/tiny_mammalian_cell_cycle_special_ltl/model.net LTL/tiny_mammalian_cell_cycle_special_ltl/observations.ltlspec temporal_logic_bmc
-
-Example to running with 2 special nodes:
-java -jar NAE.jar 100 LTL/mammalian_cell_cycle_2specials_ltl/model.net LTL/mammalian_cell_cycle_2specials_ltl/observations.ltlspec temporal_logic_bmc
-
+[1] Traynard,P. et al. (2016) Logical model specification aided by model-checking techniques: application to the mammalian cell cycle regulation.
+Bioinformatics, 32(17), i772–i780. 
 
 
 
